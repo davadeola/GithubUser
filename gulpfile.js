@@ -24,7 +24,8 @@ var lib = require('bower-files')(
 );
 
 var browserSync = require('browser-sync').create();//create() creates our server
-
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');//for sass in css
 
 var buildProduction = utilities.env.production;//initiates a production environment
 
@@ -77,7 +78,9 @@ gulp.task("build", ["clean"], function(){
     gulp.start('jsBrowserify');
   }
   gulp.start('bower');//this will run our bower files no matter the environment we may be in
+  gulp.start('cssBuild');
 });
+
 
 
 
@@ -91,6 +94,15 @@ gulp.task('bowerBuild', ['bower'], function(){
 
 gulp.task('htmlBuild', function(){
   browserSync.reload();
+});
+
+gulp.task('cssBuild', function() {//to sass the CSS
+  return gulp.src(['scss/*.scss'])
+  .pipe(sourcemaps.init())
+  .pipe(sass())
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest('./build/css'))
+  .pipe(browserSync.stream());//auto injects our new CSS into the browser
 });
 
 
@@ -110,5 +122,5 @@ gulp.task('serve', function() {
   gulp.watch(['js/*.js'], ['jsBuild']);//this will automatically update all js files in the js folder once changed and run jsBuild
   gulp.watch(['bower.json'], ['bowerBuild']);
   gulp.watch(['*.html'], ['htmlBuild']);//watches for changes in all html pages and makes live changes to all of them
-
+  gulp.watch(["scss/*.scss"], ['cssBuild']);
 });

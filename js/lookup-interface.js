@@ -7,7 +7,7 @@ $(document).ready(function(){
     getRepos = function(){
       $.get('https://api.github.com/users/'+ userName+'?access_token='+ apikey).then(function(response){
         console.log(response.avatar_url);
-        $("div#asd").append(response.avatar_url);
+        $("div#asd").text(response.avatar_url);
       });
     };
 
