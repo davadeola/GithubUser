@@ -1,22 +1,22 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-exports.apikey  = "c38027e96a49f7fe98382c72e1ff998df7fc7440";
+exports.apikey  = "b15fcc3dd25a827aff332dcee8b4cb2035ba4869";
 
 },{}],2:[function(require,module,exports){
 var apikey = require('./../.env').apikey;
 
-  // console.log(apikey);
-  // exports.getRepos = function(){
-  //   $.get('https://api.github.com/users/davadeola?access_token='+ apikey).then(function(response){
-  //     console.log(response);
-  //   });
-  // };
+function getmyRepos(userName) {
+  $.get('https://api.github.com/users/'+userName+'/repos?access_token='+ apikey).then(function(responses){
+    console.log(responses);
+    responses.forEach(function (repo) {
+      $("ul.repos").append("<li><a href="+repo.html_url+">"+repo.name+"</a></li>");
+    });
+});
+}
 
-  // .fail(function(error){
-  //   console.log(error.responseJSON.message);
-  // });
+exports.getmyReposModule = getmyRepos;
 
 },{"./../.env":1}],3:[function(require,module,exports){
-var getRepos = require('./../js/lookup.js').getRepos;
+var getmyRepos = require('./../js/lookup.js').getmyReposModule;
 var apikey = require('./../.env').apikey;
 $(document).ready(function(){
 
@@ -36,10 +36,14 @@ $(document).ready(function(){
           <div class="col-md-8">
           <h1>`+response.login+`</h1>
           <a href="`+response.html_url+`">Github Account</a>
+          <div>
           <h2>Repositories</h2>
+          <ul class="repos"></ul>
+          </div>
           </div>`
 
       );
+      getmyRepos(userName);
     });
 
     };

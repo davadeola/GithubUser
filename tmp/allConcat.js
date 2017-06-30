@@ -1,4 +1,4 @@
-var getRepos = require('./../js/lookup.js').getRepos;
+var getmyRepos = require('./../js/lookup.js').getmyReposModule;
 var apikey = require('./../.env').apikey;
 $(document).ready(function(){
 
@@ -18,10 +18,14 @@ $(document).ready(function(){
           <div class="col-md-8">
           <h1>`+response.login+`</h1>
           <a href="`+response.html_url+`">Github Account</a>
+          <div>
           <h2>Repositories</h2>
+          <ul class="repos"></ul>
+          </div>
           </div>`
 
       );
+      getmyRepos(userName);
     });
 
     };
