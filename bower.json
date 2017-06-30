@@ -1,0 +1,17 @@
+{
+  "name": "githupuserlookup",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "David Adeola <adeoladavid15@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
