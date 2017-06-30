@@ -15,20 +15,23 @@ $(document).ready(function(){
           <img src="`+ response.avatar_url+`" alt="">
           </div>
           </div>
+
           <div class="col-md-8">
           <h1>`+response.login+`</h1>
           <a href="`+response.html_url+`">Github Account</a>
+          <p>`+response.login+` has `+response.public_repos+` repositories.</p>
           <div>
+
           <h2>Repositories</h2>
           <ul class="repos"></ul>
           </div>
           </div>`
 
-      );
-      getmyRepos(userName);
-    });
+        );
+        getmyRepos(userName);
+      });
 
     };
     getRepos();
-});
   });
+});
